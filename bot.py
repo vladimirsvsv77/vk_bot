@@ -58,7 +58,7 @@ def get_next_sentence(user_id, text):
     if 'да' in text:
         sentence_index = int(r_server.get(user_id))
         text = sentences[sentence_index]
-        if sentence_index == len(sentence_index - 1):
+        if sentence_index == len(sentences) - 1:
             r_server.set(user_id, 0)
         else:
             r_server.set(user_id, sentence_index + 1)
