@@ -81,7 +81,7 @@ def main():
             print('id{}: "{}"'.format(event.user_id, event.text), end=' ')
 
             # text = get_answer_from_mailru(event.text)
-            if r_server[event.user_id] is None:
+            if r_server.get(event.user_id) is None:
                 r_server.set(event.user_id, 0)
                 text = sentences[0]
             else:
