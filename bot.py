@@ -36,14 +36,11 @@ def strip_tags(html):
 
 def get_answer_from_mailru(question):
     req_json = requests.get('https://go.mail.ru/answer_json?q=' + question).json()
-    dict_answers = {}
-    for i in range(3):
-        dict_answers[i] = len(req_json['results'][i]['answer'])
-
-    answer_index = sorted(dict_answers.items(), key=lambda x: x[1])[0][0]
-
-    answer = strip_tags(req_json['results'][answer_index]["answer"])
-    answer = re.sub(r'http\S+', '', answer)
+    try:
+        answer = strip_tags(req_json['results'][0]["answer"])
+        answer = re.sub(r'http\S+', '', answer)
+    except:
+        answer = 'у меня нет ответа на этот вопрос'
     return answer
 
 
