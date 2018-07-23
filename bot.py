@@ -55,8 +55,8 @@ def get_answer_from_mailru(question):
 
 
 def get_next_sentence(user_id, text):
-    if 'да' in text:
-        sentence_index = int(r_server.get(user_id))
+    sentence_index = int(r_server.get(user_id))
+    if 'да' in text or sentence_index == 0:
         text = sentences[sentence_index]
         if sentence_index == len(sentences) - 1:
             r_server.set(user_id, 0)
@@ -67,6 +67,8 @@ def get_next_sentence(user_id, text):
         r_server.set(user_id, 0)
     else:
         text = "Извините, я не поняла ответ. Ответьте, пожалуйста, да или нет."
+
+    return text
 
 
 def main():
@@ -85,7 +87,7 @@ def main():
                 r_server.set(event.user_id, 0)
                 text = sentences[0]
             else:
-                get_next_sentence(event.user_id, event.text.strip())
+                text = get_next_sentence(event.user_id, event.text.strip())
 
             if not text:
                 vk.messages.send(
