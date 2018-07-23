@@ -1,1 +1,1 @@
-# vk_bot
+# Python bot for vk.com
