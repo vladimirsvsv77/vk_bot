@@ -87,7 +87,7 @@ def main():
                 r_server.set(event.user_id, 0)
                 text = sentences[0]
             else:
-                text = get_next_sentence(event.user_id, event.text.strip())
+                text = get_next_sentence(event.user_id, event.text.strip().lower())
 
             if not text:
                 vk.messages.send(
